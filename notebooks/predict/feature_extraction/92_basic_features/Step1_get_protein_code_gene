@@ -1,0 +1,4 @@
+#!bin/bash
+# a demo for grepping protein codeing gene from human annotation file
+
+grep  "gene_type=protein_coding" gene_gencode.v24.annotation.gff3 > human_protein_coding_gene.gff3
