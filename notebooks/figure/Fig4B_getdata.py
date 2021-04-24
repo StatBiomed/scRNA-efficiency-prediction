@@ -4,7 +4,9 @@ Date : April 22,2021
 
 Author : Ruiyan Hou (ruiyan_hou@163.com)
 
-This script will produce the right figure 3 in the main text. It shows the correlation between the RBP features in all-gene-body and octamer features in intron.
+This script will produce the right figure 4 in the main text. 
+This figure shows the prediction performance for within tissue (diagonal) and cross-tissue (off diagonal) prediction.
+We take the DG dataset as train dataset and the pancreas dataset as the test dataset as an examle.
 
 """
 

@@ -4,7 +4,8 @@ Date : April 22,2021
 
 Author : Ruiyan Hou (ruiyan_hou@163.com)
 
-This script will produce the right figure 3 in the main text. It shows the correlation between the RBP features in all-gene-body and octamer features in intron.
+This script will produce the right figure 3 in the main text. 
+It shows the correlation between the RBP features in all-gene-body and octamer features in intron.
 
 """
 

@@ -4,7 +4,8 @@ Date : April 22,2021
 
 Author : Ruiyan Hou (ruiyan_hou@163.com)
 
-This script will produce the right figure 4 in the main text. It shows the pearson's R in 10-fold coss-valiadation.
+This script will produce the right figure 4 in the main text. 
+It shows the pearson's R in 10-fold coss-valiadation in different tissues.
 
 """
 

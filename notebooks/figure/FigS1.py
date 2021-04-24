@@ -1,3 +1,16 @@
+HELP_STRING="""
+
+Date : April 22,2021
+
+Author : Ruiyan Hou (ruiyan_hou@163.com)
+
+This script will produce the figure 1 in the supplementary.
+We take the pancreas dataset as an example to show the relationship between the log(gamma') in stochastic model and 
+the log(gamma') in dynamical model.
+
+"""
+
+
 # -*- coding: utf-8 -*-
 import matplotlib
 matplotlib.use('Agg')
@@ -8,25 +21,20 @@ from hilearn import corr_plot
 import pylab as pl
 
 
-#read dataset
+#arrange data
 betadf=pd.read_csv('/home/houruiyan/scRNAkineticprediction/scRNA-kinetics-prediction/data/estimated/pancreas_dynamical_beta_gamma.csv',index_col=0)
 print(betadf)
-
 gammadf=pd.read_csv('/home/houruiyan/scRNAkineticprediction/scRNA-kinetics-prediction/data/estimated/pancreas_stochastical_gamma.csv',index_col=0)
 print(gammadf)
-
-
 mergedf=pd.merge(betadf,gammadf,on='gene_id',how='left')
 mergedf.dropna(how='any',inplace=True)
-# mergedf['']
-# mergedf=mergedf[['fit_beta','fit_gamma','velocity_gamma']]
 print(mergedf)
-
 betaX=((mergedf['log(fit_gamma)'].apply(lambda x:np.exp(x)))/(mergedf['log(fit_beta)'].apply(lambda x:np.exp(x)))).apply(np.log)
 gammaX=mergedf['log(velocity_gamma)']
-
 betaX=betaX.values
 gammaX=gammaX.values
+
+
 
 #plot
 corr_plot(betaX,gammaX,size=20,dot_color='tomato',alpha=0.8)

@@ -1,3 +1,16 @@
+HELP_STRING="""
+
+Date : April 22,2021
+
+Author : Ruiyan Hou (ruiyan_hou@163.com)
+
+This script will produce the figure 5 in the supplementary. It contains 6 panels. 
+We just take lung in human dataset as an example. We get other panels by using the same code.
+
+"""
+
+
+
 import matplotlib
 matplotlib.use('Agg')
 import glmnet_python 
@@ -21,4 +34,4 @@ cvfit=cvglmnet(x=cscX,y=dfy,family='gaussian',alpha=1,ptype='mse',nfolds=3)
 optlambda=cvfit['lambda_min']
 print(optlambda)
 cvglmnetPlot(cvfit)
-plt.savefig('/home/lzbhouruiyan/scRNA-kinetics-prediction/figure/supp/S6/lung_human.pdf')
+plt.savefig('/home/lzbhouruiyan/scRNA-kinetics-prediction/figure/supp/S5/lung_human.pdf')

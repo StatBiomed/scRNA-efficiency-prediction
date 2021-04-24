@@ -4,14 +4,13 @@ Date : April 22,2021
 
 Author : Ruiyan Hou (ruiyan_hou@163.com)
 
-This script will produce the figure 6 in the supplementary. 
-It contains 3 panels(the prediction result of linear, lasso and random forest regression). 
+This script will produce the figure 7 in the supplementary. 
+It shows the poor prediction of splicing efficiency after permutation
 
 """
 
 
-
-
+#-*-coding:utf-8-*-
 import matplotlib
 matplotlib.use('Agg')
 import pandas as pd
@@ -22,9 +21,10 @@ from hilearn import CrossValidation, corr_plot
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 import numpy as np
+import matplotlib.pyplot as plt
 
 
-#get data
+#arrange data
 rbpdf=pd.read_csv('/home/lzbhouruiyan/pullgit/scRNA-kinetics-prediction/data/features/k562_all_gene_body_RBP.csv',index_col=0)
 basicdf=pd.read_csv('/home/lzbhouruiyan/pullgit/scRNA-kinetics-prediction/data/features/humanproteincode_92feature_gene_level.csv')
 basicdf['intronL']=basicdf['intronL'].apply(np.log)
@@ -38,57 +38,23 @@ scveloy=pd.read_csv('/home/lzbhouruiyan/pullgit/scRNA-kinetics-prediction/data/e
 scveloy['splicing_efficiency']=(1/scveloy['velocity_gamma']).apply(np.log)
 inputdf=scveloy.merge(threedf,on='gene_id')
 print(inputdf)
-
 X=inputdf.iloc[:,4:312]
-Y=inputdf['splicing_efficiency']
-print(X)
-print(Y)
+Y=np.random.permutation(inputdf['splicing_efficiency'].values)
 X=X.values
-Y=Y.values
 print(X.shape)
 print(Y.shape)
 print(np.isnan(X).sum())
 print(np.isnan(Y).sum())
-
-
 #define the model objects
-linreg=linear_model.LinearRegression()
-lassoreg=linear_model.LassoCV(cv=3)
-randforest=RandomForestRegressor(n_estimators=100,n_jobs=-1,random_state=666)
-
-fig=pl.figure()
-pl.subplot(1,3,1)
-#cross-validation wrap & corr_plot
-CV = CrossValidation(X,Y)
-Y_pre = CV.cv_regression(linreg)
-linear_Y_predf=pd.DataFrame(Y_pre)
-corr_plot(Y, Y_pre, size=20)
-pl.xlabel("observation")
-pl.ylabel("prediction")
-pl.title("linear regression")
-
-
-pl.subplot(1,3,2)
-CV = CrossValidation(X,Y)
-Y_pre = CV.cv_regression(lassoreg)
-lasso_Y_predf=pd.DataFrame(Y_pre)
-corr_plot(Y, Y_pre, size=20)
-pl.xlabel("observation")
-pl.ylabel("prediction")
-pl.title("Lasso regression")
-
-
-pl.subplot(1,3,3)
+randforest=RandomForestRegressor(n_estimators=100,n_jobs=-1)
 CV = CrossValidation(X,Y)
 Y_pre = CV.cv_regression(randforest)
-rfdf=pd.DataFrame(Y_pre,inputdf['gene_id'])
-rfdf.to_csv('/home/lzbhouruiyan/pullgit/scRNA-kinetics-prediction/data/predicted/sck562.csv')
-corr_plot(Y, Y_pre, size=20)
-pl.xlabel("observation")
-pl.ylabel("prediction")
-pl.title("random forest regression")
 
-pl.ylim(-7,5)
-fig.set_size_inches(12,3.5)
-fig.savefig("/home/lzbhouruiyan/scRNA-kinetics-prediction/figure/supp/S6.pdf", dpi=300, bbox_inches='tight')
-pl.show()
+
+#plot
+fig=plt.gcf()
+corr_plot(Y,Y_pre,size=20,dot_color='tomato',alpha=0.8)
+pl.xlabel(u"observation log(1/γ)",fontsize=15)
+pl.ylabel(u"prediction log(1/γ)",fontsize=15)
+pl.title('K562(scRNA-seq)',fontweight='medium',fontsize=18)
+fig.savefig(u"/home/lzbhouruiyan/scRNA-kinetics-prediction/figure/supp/S7.pdf", dpi=300, bbox_inches='tight')

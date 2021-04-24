@@ -4,7 +4,8 @@ Date : April 22,2021
 
 Author : Ruiyan Hou (ruiyan_hou@163.com)
 
-This script will produce the left figure 3 in the main text. It contains 3 panels including important features in full feature sets, RBP feature set and 92 basic features.    
+This script will produce the left figure 3 in the main text. 
+It contains 3 panels including important features in full feature sets, RBP feature set and 92 basic features.    
 
 
 """
