@@ -1,3 +1,6 @@
+[![DOI](https://zenodo.org/badge/303684209.svg)](https://zenodo.org/badge/latestdoi/303684209)
+
+
 # Prediction of RNA splicing kinetics in scRNA-seq data
 
 This repository contains 
